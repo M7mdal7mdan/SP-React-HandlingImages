@@ -9,8 +9,12 @@ class ProductStore {
   products = [];
 
   createProduct = async (newProduct) => {
+    console.log("🚀 ~ file: productStore.js ~ line 12 ~ ProductStore ~ createProduct= ~ newProduct", newProduct)
     try {
-      const response = await instance.post("/products", newProduct);
+      const formData = new FormData()
+      for (const key in newProduct) formData.append(key,newProduct[key]);
+      const response = await instance.post("/products", formData);
+      console.log("🚀 ~ file: productStore.js ~ line 16 ~ ProductStore ~ createProduct= ~ response", response)
       this.products.push(response.data);
     } catch (error) {
       console.log(
